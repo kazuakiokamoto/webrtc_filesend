@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WebRTCでファイルを送信</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <style media="screen">
+    .header{ background: rgb(28, 84, 167); padding:2em 0;}
+    .header h1,.header p{ color: #fff;}
+    #myid, #dropFiles{ padding: 1em;}
+    #connectID, #p2pConnectId{ width: 45%;}
+    #getDataArea li a{ font-size: 120%;}
+  </style>
+</head>
+<body>
+  <div class="container-fluid header">
+    <div class="container">
+      <h1>WebRTCでファイルを送信</h1>
+      <p class="lead">WebRTCの技術を利用してローカルのファイルを送信</p>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h2>Step1. IDを指定して接続</h2>
+        <p>半角英数のIDを指定して接続します。IDはこのサービス上でユニークであれば何でも構いません。既に利用中のIDの場合は接続できません。</p>
+        <div class="form-inline">
+          <input type="text" value="" id="connectID" class="form-control" />
+          <button id="rtcConnect" class="btn btn-success">接続する</button>
+          <button id="rtcDisconnect" class="btn btn-danger">切断する</button>
+        </div>
+        <h3>自分のID</h3>
+        <p id="myid" class="bg-warning">まだ接続していません</p>
+      </div>
+      <div class="col-md-6">
+        <h2>Step2. 送信相手を指定して送信</h2>
+        <p>送信したい相手のIDとファイルを指定して送信します。相手のIDが接続中でない場合は送信できません。</p>
+        <input id="selectFiles" type="file" multiple />
+        <div id="dropFiles" class="bg-info">もしくはここにファイルをドロップ</div>
+        <ul id="fileList"></ul>
+        <div class="form-inline">
+          <input placeholder="接続する友達のIDを入力" id="p2pConnectId" class="form-control">
+          <button id="p2pConnect" class="btn btn-success">送信する</button>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <h2>受信したファイル</h2>
+        <p>受信したファイルの一覧はこちらに表示されます</p>
+        <ul id="getDataArea"></ul>
+      </div>
+    </div>
+  </div>
+  <script src="js/jquery-1.11.3.min.js"></script>
+  <script src="js/peer.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
