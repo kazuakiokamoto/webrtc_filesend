@@ -64,14 +64,14 @@ $(function(){
       c.on('data', function(data){
         if (data[0].constructor === ArrayBuffer) {
           var dataView = new Uint8Array(data[0]);
-          var dataBlob = new Blob([dataView]);
+          var dataBlob = new Blob([dataView], {type: data[2]});
+          window.URL = window.URL || window.webkitURL;
           var url = window.URL.createObjectURL(dataBlob);
           $("#getDataArea").append('<li><a target="_blank" download="' + data[1] + '" href="' + url + '">from ' + c.peer + ' : ' + data[1] + '</a></li>');
         }
       });
     }
   };
-
 
   // 切断
   $("#rtcDisconnect").on("click", function(){
@@ -97,7 +97,8 @@ $(function(){
     conn.on('open', function() {
       for(var i=0,l=sendFiles.length;i<l;i++){
         var filename = sendFiles[i].name;
-        conn.send([sendFiles[i], filename]);
+        var filetype = sendFiles[i].type;
+        conn.send([sendFiles[i], filename, filetype]);
       }
       //alert("ファイルを送信しました");
       sendFiles = [];
